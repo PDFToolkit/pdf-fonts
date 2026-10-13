@@ -12,19 +12,20 @@ un fichier de police n’a pas besoin de ce package.
 
 ## Installation
 
-Les modules sont actuellement disponibles sur leur branche de développement.
-Les dépôts VCS sont déclarés dans le projet consommateur, car Composer ne
-reprend pas les dépôts configurés dans les dépendances.
+Les packages ne sont pas encore publiés sur Packagist. Les dépôts VCS sont
+déclarés dans le projet consommateur, car Composer ne reprend pas les dépôts
+configurés dans les dépendances.
 
 ```sh
 composer config repositories.pdf vcs https://github.com/PDFToolkit/pdf
 composer config repositories.pdf-fonts vcs https://github.com/PDFToolkit/pdf-fonts
-composer require roukmoute/pdf:dev-master pdftoolkit/pdf-fonts:dev-master
+composer require "pdftoolkit/pdf-fonts:^0.1"
 ```
 
-Le nom Composer du core reste `roukmoute/pdf`. Le namespace des convertisseurs
-est `PDF\Fonts\TrueType` ; celui des objets PDF de police est
-`PDF\Document\Fonts`.
+Le module utilise le core `roukmoute/pdf:^0.2`, installé automatiquement par
+Composer. Le namespace des convertisseurs est `PDF\Fonts\TrueType` ; celui des
+objets PDF de police est `PDF\Document\Fonts`. Le fichier `composer.lock` du
+projet consommateur fixe les versions et les révisions utilisées.
 
 ## Construction
 
@@ -102,3 +103,5 @@ composer install
 composer check
 php examples/embedded-font.php embedded-font.pdf
 ```
+
+Consulter le [changelog](CHANGELOG.md) et la [politique de sécurité](SECURITY.md).
