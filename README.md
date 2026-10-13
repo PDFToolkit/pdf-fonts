@@ -22,10 +22,15 @@ composer config repositories.pdf-fonts vcs https://github.com/PDFToolkit/pdf-fon
 composer require "pdftoolkit/pdf-fonts:^0.1"
 ```
 
-Le module utilise le core `roukmoute/pdf:^0.2 || ^0.3`, installé automatiquement par
-Composer. Le namespace des convertisseurs est `PDF\Fonts\TrueType` ; celui des
-objets PDF de police est `PDF\Document\Fonts`. Le fichier `composer.lock` du
-projet consommateur fixe les versions et les révisions utilisées.
+Le module utilise le core `roukmoute/pdf:^0.2 || ^0.3 || ^0.4 || ^0.5`,
+installé automatiquement par Composer. Le namespace des convertisseurs est
+`PDF\Fonts\TrueType` ; celui des objets PDF de police est `PDF\Document\Fonts`.
+Le fichier `composer.lock` du projet consommateur fixe les versions et les
+révisions utilisées.
+
+La [documentation commune](https://pdftoolkit.github.io/) regroupe les objets du
+core et les modules. La [documentation du module polices](https://pdftoolkit.github.io/modules/fonts/)
+présente ses guides et sa référence API.
 
 ## Construction
 
