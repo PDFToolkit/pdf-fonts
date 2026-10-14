@@ -12,18 +12,18 @@ un fichier de police n’a pas besoin de ce package.
 
 ## Installation
 
-Les packages ne sont pas encore publiés sur Packagist. Les dépôts VCS sont
-déclarés dans le projet consommateur, car Composer ne reprend pas les dépôts
-configurés dans les dépendances.
+Le package est disponible sur
+[Packagist](https://packagist.org/packages/pdftoolkit/pdf-fonts). Dans le projet
+consommateur :
 
 ```sh
-composer config repositories.pdf vcs https://github.com/PDFToolkit/pdf
-composer config repositories.pdf-fonts vcs https://github.com/PDFToolkit/pdf-fonts
 composer require "pdftoolkit/pdf-fonts:^0.1"
 ```
 
 Le module utilise le core `roukmoute/pdf:^0.2 || ^0.3 || ^0.4 || ^0.5`,
-installé automatiquement par Composer. Le namespace des convertisseurs est
+installé automatiquement par Composer. PHP 8.3 ou supérieur sur une plateforme
+64 bits et les extensions `ctype`, `iconv` et `zlib` sont requis pour cet ensemble.
+Le namespace des convertisseurs est
 `PDF\Fonts\TrueType` ; celui des objets PDF de police est `PDF\Document\Fonts`.
 Le fichier `composer.lock` du projet consommateur fixe les versions et les
 révisions utilisées.
