@@ -1,54 +1,55 @@
-# Du programme TrueType aux objets PDF
+# From a TrueType program to PDF objects
 
-## Deux formats, deux responsabilités
+English | [Français](fr/true-type-to-pdf.md)
 
-ISO 32000-1 décrit un `/FontFile2` comme un flux contenant un programme TrueType,
-un descripteur comme un dictionnaire de métriques en unités PDF, et une police
-composite comme un graphe d’objets : `/Type0`, `/CIDFontType2`, `/CIDToGIDMap`,
-`/W` et `/ToUnicode`. Le core peut construire chacun de ces objets à partir de
-valeurs déjà connues. Il ne décode pas les tables sfnt d’une fonte externe.
+## Two formats, two responsibilities
 
-Le format TrueType définit ses tables et les règles nécessaires pour lire les
-métriques et les contours. Les classes de ce package prennent en charge cette
-lecture, puis transmettent seulement les valeurs normalisées au core.
+ISO 32000-1 describes `/FontFile2` as a stream containing a TrueType program,
+a descriptor as a dictionary of metrics in PDF units, and a composite font as
+an object graph: `/Type0`, `/CIDFontType2`, `/CIDToGIDMap`, `/W` and `/ToUnicode`.
+The core can construct each of these objects from known values. It does not
+decode the sfnt tables of an external font.
 
-## Étapes de l’exemple
+The TrueType format defines its tables and the rules required to read metrics
+and outlines. This package's classes perform that reading, then pass only
+normalised values to the core.
 
-1. L’application fournit les octets au constructeur `FontProgram`. Celui-ci
-   valide les offsets, les tailles, les métriques et les droits d’incorporation.
-2. `CIDFontProgram` conserve tous les glyphes et reconstruit le programme destiné
-   à `/FontFile2`. Il retire `cmap`, conformément à la section 9.9 pour un
-   `/CIDFontType2`, ainsi que la signature `DSIG` invalidée par cette conversion.
-   Le répertoire et les checksums sfnt sont recalculés.
-3. Le core reçoit ces octets dans `FontFile2`. Il calcule `/Length1` sans chercher
-   à lire ou valider les tables TrueType ; les filtres PDF encodent le flux.
-4. `UnicodeText` déclare le répertoire avant de construire le document.
-   `CharacterMapFactory` cherche les GID dans `cmap`, attribue des CID distincts
-   aux caractères Unicode et convertit les avances vers les 1 000 unités PDF.
-   Deux caractères partageant un glyphe conservent des CID et des mappings
-   `/ToUnicode` distincts.
-5. `FontDescriptorFactory` convertit les dimensions, la boîte, l’angle et les
-   hauteurs vers des `NumericType` et un `Rectangle` du core. `StemV` et les flags
-   sont fournis explicitement, car le format ne fournit pas une mesure
-   universelle de l’épaisseur des fûts. `CapHeight` peut être fourni explicitement
-   si la fonte ne le déclare pas et si la hauteur du glyphe `H` ne suffit pas.
-6. `CIDWidths`, `CIDToGIDMap`, `ToUnicodeCMap`, `CIDFontType2` et `Type0Font`
-   composent ensuite exclusivement des objets PDF. Ils ne connaissent ni
-   `FontProgram`, ni `cmap`, ni le nombre d’unités par em.
-7. `TextEncoder` convertit les caractères déjà déclarés en codes de deux octets.
-   Un caractère absent du répertoire provoque une exception ; l’encodeur ne
-   modifie pas la police à l’insu de l’application.
+## Example steps
 
-Les deux fabriques vérifient que les octets du `FontFile2` fourni correspondent
-au `CIDFontProgram` utilisé. Les objets du core vérifient ensuite l’identité du
-flux incorporé, le nom de police et le partage du même répertoire.
+1. The application supplies bytes to the `FontProgram` constructor, which
+   validates offsets, sizes, metrics and embedding permissions.
+2. `CIDFontProgram` preserves all glyphs and rebuilds the program intended for
+   `/FontFile2`. It removes `cmap`, as required by section 9.9 for a
+   `/CIDFontType2`, and the `DSIG` signature invalidated by the conversion.
+   The sfnt directory and checksums are recalculated.
+3. The core receives these bytes in `FontFile2`. It calculates `/Length1`
+   without reading or validating TrueType tables; PDF filters encode the stream.
+4. `UnicodeText` declares the repertoire before the document is built.
+   `CharacterMapFactory` finds GIDs in `cmap`, assigns distinct CIDs to Unicode
+   characters and converts advances into 1,000-unit PDF metrics. Two characters
+   sharing a glyph retain distinct CIDs and `/ToUnicode` mappings.
+5. `FontDescriptorFactory` converts dimensions, the bounding box, angle and
+   heights into core `NumericType` values and a `Rectangle`. `StemV` and flags
+   are supplied explicitly because the format does not provide a universal
+   measurement of stem thickness. `CapHeight` can be supplied explicitly if
+   the font does not declare it and the height of the `H` glyph is insufficient.
+6. `CIDWidths`, `CIDToGIDMap`, `ToUnicodeCMap`, `CIDFontType2` and `Type0Font`
+   then compose only PDF objects. They know nothing about `FontProgram`,
+   `cmap` or units per em.
+7. `TextEncoder` converts previously declared characters into two-byte codes.
+   A character absent from the repertoire raises an exception; the encoder
+   does not modify the font without the application's knowledge.
 
-## Limites
+Both factories verify that the supplied `FontFile2` bytes correspond to the
+`CIDFontProgram` in use. Core objects then verify the identity of the embedded
+stream, the font name and the shared repertoire.
 
-L’exemple compose du français et du grec sans composition contextuelle. Il ne
-prétend pas traiter automatiquement l’arabe, les scripts nécessitant du shaping,
-les ligatures, le crénage, les variations ou les écritures verticales.
+## Limits
 
-La police de démonstration Noto Sans est redistribuée sous sa licence OFL dans
-`examples/assets/fonts/OFL.txt`. Les fichiers sont lus par l’application ; les
-classes du package ne disposent d’aucun accès implicite au système de fichiers.
+The example sets French and Greek text without contextual shaping. It does
+not claim to handle Arabic, scripts that require shaping, ligatures, kerning,
+variations or vertical writing automatically.
+
+The demonstration Noto Sans font is redistributed under its OFL licence in
+`examples/assets/fonts/OFL.txt`. Files are read by the application; the
+package's classes have no implicit access to the file system.

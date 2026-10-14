@@ -1,41 +1,41 @@
 # PDFToolkit Fonts
 
-Convertisseurs optionnels de programmes de police vers les objets PDF de
+English | [Français](README.fr.md)
+
+Optional font program converters for the PDF objects in
 [PDFToolkit Core](https://github.com/PDFToolkit/pdf).
 
-Le core représente les dictionnaires, les flux, les CID, les largeurs en unités
-PDF et les correspondances `/ToUnicode` décrits par ISO 32000-1. Ce package lit
-le format TrueType externe : répertoire sfnt, `cmap`, `glyf`, `loca`, `hmtx`,
-`OS/2`, `name`, `head`, `hhea`, `maxp` et `post`. Il transforme ensuite les
-résultats en valeurs PDF explicites. Un projet qui génère ses PDF sans analyser
-un fichier de police n’a pas besoin de ce package.
+The core represents dictionaries, streams, CIDs, widths in PDF units and
+`/ToUnicode` mappings described by ISO 32000-1. This package reads the external
+TrueType format: the sfnt directory, `cmap`, `glyf`, `loca`, `hmtx`, `OS/2`,
+`name`, `head`, `hhea`, `maxp` and `post`. It then converts the results into
+explicit PDF values. A project that generates PDFs without parsing a font
+file does not need this package.
 
 ## Installation
 
-Le package est disponible sur
-[Packagist](https://packagist.org/packages/pdftoolkit/pdf-fonts). Dans le projet
-consommateur :
+The package is available on
+[Packagist](https://packagist.org/packages/pdftoolkit/pdf-fonts). In your
+application:
 
 ```sh
 composer require "pdftoolkit/pdf-fonts:^0.1"
 ```
 
-Le module utilise le core `roukmoute/pdf:^0.2 || ^0.3 || ^0.4 || ^0.5`,
-installé automatiquement par Composer. PHP 8.3 ou supérieur sur une plateforme
-64 bits et les extensions `ctype`, `iconv` et `zlib` sont requis pour cet ensemble.
-Le namespace des convertisseurs est
-`PDF\Fonts\TrueType` ; celui des objets PDF de police est `PDF\Document\Fonts`.
-Le fichier `composer.lock` du projet consommateur fixe les versions et les
-révisions utilisées.
+The module uses `roukmoute/pdf:^0.2 || ^0.3 || ^0.4 || ^0.5`, installed
+by Composer automatically. PHP 8.3 or newer on a 64-bit platform and the `ctype`,
+`iconv` and `zlib` extensions are required for this combination. Converters use
+the `PDF\Fonts\TrueType` namespace; PDF font objects use `PDF\Document\Fonts`.
+The application's `composer.lock` records the selected versions and revisions.
 
-La [documentation commune](https://pdftoolkit.github.io/) regroupe les objets du
-core et les modules. La [documentation du module polices](https://pdftoolkit.github.io/modules/fonts/)
-présente ses guides et sa référence API.
+The [shared documentation](https://pdftoolkit.github.io/) covers core objects
+and modules. The [font module documentation](https://pdftoolkit.github.io/modules/fonts/)
+contains its guides and API reference.
 
 ## Construction
 
-Chaque étape est un objet instancié et peut être manipulée indépendamment.
-Aucun registre global, singleton ou fabrique statique n’intervient.
+Each step is an instantiated object and can be manipulated independently.
+There is no global registry, singleton or static factory.
 
 ```php
 use PDF\Document\Fonts\CIDFontType2;
@@ -69,39 +69,37 @@ $font = new Type0Font($descendant, new ToUnicodeCMap($map));
 $text = (new TextEncoder($map))->encode($repertoire);
 ```
 
-`$fontBytes` est fourni par l’application. Le package ne reçoit aucun chemin ni
-URL et n’effectue aucun accès à un fichier. Le résultat `$text` est une chaîne
-PDF de codes Identity-H de deux octets, destinée à un opérateur de texte.
+The application supplies `$fontBytes`. The package accepts no path or URL and
+performs no file access. The resulting `$text` is a PDF string of two-byte
+Identity-H codes, intended for a text operator.
 
-Le [didacticiel de conversion](docs/true-type-to-pdf.md) détaille la séparation,
-les objets et les limites. [L’exemple complet](examples/embedded-font.php)
-produit un PDF avec la police Noto Sans incluse sous licence OFL.
+The [conversion tutorial](docs/true-type-to-pdf.md) explains the separation,
+objects and limits. The [complete example](examples/embedded-font.php) produces
+a PDF with the included Noto Sans font, distributed under the OFL licence.
 
-## Portée et contrôles
+## Scope and checks
 
-PHP 8.3 ou supérieur sur une plateforme 64 bits est requis. Seuls les programmes
-TrueType statiques simples avec contours `glyf` sont pris en charge. Les
-collections, CFF, WOFF et polices variables sont rejetés explicitement. Tous les
-glyphes sont conservés : aucune réduction en sous-ensemble, composition
-contextuelle, ligature, crénage ni écriture verticale n’est effectuée.
+PHP 8.3 or newer on a 64-bit platform is required. Only single, static TrueType
+programs with `glyf` outlines are supported. Collections, CFF, WOFF and variable
+fonts are explicitly rejected. All glyphs are preserved: no subsetting,
+contextual shaping, ligatures, kerning or vertical writing is performed.
 
-Le budget par défaut est de 32 MiB de données de police ; `FontProgramLimits`
-permet de fournir un budget explicite. `UnicodeText` est limité à 1 MiB de UTF-8.
-Les accès binaires restent bornés à leur table, les références de glyphes et les
-cycles/composites sont contrôlés, et les `cmap` restent sous forme binaire.
-Les droits d’incorporation `fsType` sont vérifiés ; les restrictions et les
-polices réservées aux bitmaps sont rejetées.
+The default budget is 32 MiB of font data; `FontProgramLimits` accepts an
+explicit budget. `UnicodeText` is limited to 1 MiB of UTF-8. Binary reads remain
+bounded to their table, glyph references and composite cycles are checked, and
+`cmap` tables remain in binary form. `fsType` embedding permissions are checked;
+restricted and bitmap-only fonts are rejected.
 
-Les tests conservent les cas de troncature, dépassement d’offset, chevauchement
-de tables, Unicode invalide, CID/GID invalides, cycles et profondeur des glyphes
-ainsi que les contre-exemples d’allocation mémoire. Ces contrôles ne constituent
-pas une garantie d’absence de vulnérabilités pour toutes les entrées possibles.
+Tests retain cases for truncation, offset overflow, overlapping tables,
+invalid Unicode, invalid CID/GID values, glyph cycles and depth, and excessive
+memory allocation. These checks do not guarantee the absence of vulnerabilities
+for every possible input.
 
-## Développement
+## Development
 
-Les tests utilisent une fonte synthétique originale sous licence MIT. Le
-[binaire et son générateur](tests/Fixtures/fonts/README.md) sont committés ;
-Python et fontTools ne sont pas requis pour exécuter les tests PHP.
+Tests use an original synthetic font under the MIT licence. Its
+[binary and generator](tests/Fixtures/fonts/README.md) are committed; Python
+and fontTools are not required to run the PHP tests.
 
 ```sh
 composer install
@@ -109,4 +107,4 @@ composer check
 php examples/embedded-font.php embedded-font.pdf
 ```
 
-Consulter le [changelog](CHANGELOG.md) et la [politique de sécurité](SECURITY.md).
+See the [changelog](CHANGELOG.md) and [security policy](SECURITY.md).

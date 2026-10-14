@@ -1,90 +1,97 @@
 # Changelog
 
+English | [Français](CHANGELOG.fr.md)
+
 ## Unreleased
 
+## 0.1.6 — 2026-10-14
+
+### Bilingual documentation
+
+- Makes English the default language for the README, guides and complete release history.
+- Adds complete French counterparts with reciprocal language links and French documentation entrypoints.
+- Translates explanatory example comments while preserving executable tokens and output data.
+- Locks validation to published core 0.5.4 without changing other dependency versions or commits.
+- Preserves API identifiers, original fixtures and runtime behaviour.
 ## 0.1.5 — 2026-10-14
 
-### Installation et publication
+### Installation and publication
 
-- Publie le package sur Packagist et simplifie son installation en une commande
-  `composer require` dans un projet consommateur.
-- Utilise les dépôts Composer par défaut et relie les métadonnées du package à
-  sa documentation sur `https://pdftoolkit.github.io/`.
-- Verrouille les vérifications sur le core stable `roukmoute/pdf:0.5.3`, sans
-  modifier les versions des outils de développement.
-- Vérifie l'indexation des versions publiées et leur installation sans dépôts
-  VCS ou locaux. Conserve l'API PHP, les mécanismes et les limites existants.
+- Publishes the package on Packagist and reduces installation to one
+  `composer require` command in an application.
+- Uses default Composer repositories and connects package metadata to its
+  documentation at `https://pdftoolkit.github.io/`.
+- Locks checks to stable core `roukmoute/pdf:0.5.3` without changing development
+  tool versions.
+- Verifies indexing of published versions and installation without VCS or
+  local repositories. Preserves the PHP API, existing mechanisms and limits.
 
 ## 0.1.4 — 2026-10-14
 
 ### Documentation
 
-- Relie la documentation commune à `https://pdftoolkit.github.io/` et ajoute
-  l'entrée stable des polices à `/modules/fonts/`.
-- Confie les guides communs et la publication du site à
-  `PDFToolkit/pdftoolkit.github.io`, avec des sources de modules épinglées sur
-  leurs versions publiées et leurs commits exacts.
-- Corrige la compatibilité décrite dans le README pour refléter la contrainte
-  existante `roukmoute/pdf:^0.2 || ^0.3 || ^0.4 || ^0.5`.
-- Conserve l'API, les conversions, les dépendances et leurs versions
-  verrouillées ; cette version modifie uniquement la documentation.
+- Connects shared documentation to `https://pdftoolkit.github.io/` and adds
+  the stable fonts entrypoint at `/modules/fonts/`.
+- Entrusts shared guides and site publication to
+  `PDFToolkit/pdftoolkit.github.io`, with module sources pinned to their
+  published versions and exact commits.
+- Corrects README compatibility information to reflect the existing
+  `roukmoute/pdf:^0.2 || ^0.3 || ^0.4 || ^0.5` constraint.
+- Preserves the API, conversions, dependencies and their locked versions;
+  this release changes documentation only.
 
 ## 0.1.3 — 2026-10-13
 
-### Compatibilité
+### Compatibility
 
-- Accepte le core stable `roukmoute/pdf:^0.2 || ^0.3 || ^0.4 || ^0.5`.
-- Verrouille les vérifications sur le core publié `0.4.0`, sous PHP 8.3, 8.4 et 8.5.
-- Conserve l'API et les limites du convertisseur ; aucun traitement de format de police
-  supplémentaire n'est ajouté par ce correctif de compatibilité.
+- Accepts stable core `roukmoute/pdf:^0.2 || ^0.3 || ^0.4 || ^0.5`.
+- Locks checks to published core `0.4.0` under PHP 8.3, 8.4 and 8.5.
+- Preserves the fonts API and limits; no additional font-format processing
+  is added by this compatibility patch.
 
 ## 0.1.2 — 2026-10-13
 
-### Compatibilité
+### Compatibility
 
-- Accepte le core stable `roukmoute/pdf:^0.2 || ^0.3 || ^0.4`.
-- Conserve l'API du module et sa frontière de traitement des données externes.
-- Vérifie le core stable 0.3.0 et les nouveaux objets du core 0.4 en développement,
-  sous PHP 8.3, 8.4 et 8.5.
+- Accepts stable core `roukmoute/pdf:^0.2 || ^0.3 || ^0.4`.
+- Preserves the module API and external-data processing boundary.
+- Checks stable core 0.3.0 and new core 0.4 objects in development
+  under PHP 8.3, 8.4 and 8.5.
 
 ## 0.1.1 — 2026-10-13
 
-### Compatibilité
+### Compatibility
 
-- Accepte le core `roukmoute/pdf:^0.2 || ^0.3`, pour permettre l'installation
-  avec les nouveaux objets PDF de la série 0.3 sans modifier l'API du module.
-- Revalide les tests et les PDF indépendants avec le core stable `0.2.1`.
-  Aucun mécanisme de lecture ou de conversion n'est ajouté par ce correctif.
-
+- Accepts core `roukmoute/pdf:^0.2 || ^0.3`, allowing installation with new
+  PDF objects in the 0.3 series without changing the module API.
+- Revalidates tests and independent PDFs with stable core `0.2.1`.
+  No reading or conversion mechanism is added by this patch.
 ## 0.1.0 — 2026-10-13
 
-Première version de `pdftoolkit/pdf-fonts`, sous `PDF\Fonts\TrueType`.
-Le module dépend du core `roukmoute/pdf:^0.2`, qui conserve les objets PDF
-normalisés ; le core ne dépend pas des convertisseurs de polices.
+First release of `pdftoolkit/pdf-fonts`, under `PDF\Fonts\TrueType`.
+The module depends on core `roukmoute/pdf:^0.2`, which retains normalised PDF
+objects; the core does not depend on font converters.
 
-### Ajouts
+### Added
 
-- Treize composants pour analyser un programme TrueType externe et produire
-  explicitement ses valeurs PDF.
-- Lecture des tables sfnt, des métriques horizontales, des contours `glyf`, des
-  correspondances Unicode `cmap` et des noms de police.
-- Validation des bornes et du chevauchement des tables, des références de
-  glyphes, des cycles et de la profondeur des glyphes composites.
-- Budget d'entrée configurable avec `FontProgramLimits` et validation du texte
-  UTF-8 ; aucun accès implicite à un fichier ou une URL.
-- Vérification des droits d'incorporation `fsType`.
-- Conversion du programme pour `/CIDFontType2`, en conservant tous les glyphes,
-  avec suppression de `cmap` et de `DSIG`, puis reconstruction des checksums.
-- Fabriques instanciées pour les descripteurs et les correspondances CID/GID,
-  avec conversion des métriques vers les unités PDF et vérification du programme
-  incorporé.
-- Encodage explicite Identity-H du répertoire Unicode déclaré, sans mutation
-  implicite de la police.
-- Exemple complet avec Noto Sans sous licence OFL et fixture synthétique MIT.
-- Tests des entrées invalides, des limites et des sorties PDF ; vérifications
-  sur PHP 8.3, 8.4 et 8.5.
+- Thirteen components to parse an external TrueType program and explicitly
+  produce its PDF values.
+- Reading sfnt tables, horizontal metrics, `glyf` outlines, Unicode `cmap`
+  mappings and font names.
+- Validation of table bounds and overlaps, glyph references, cycles and
+  composite glyph depth.
+- Configurable input budget with `FontProgramLimits` and UTF-8 text validation;
+  no implicit file or URL access.
+- `fsType` embedding permission checks.
+- Program conversion for `/CIDFontType2`, preserving all glyphs while removing
+  `cmap` and `DSIG`, then rebuilding checksums.
+- Instantiated factories for descriptors and CID/GID mappings, with metric
+  conversion to PDF units and embedded program verification.
+- Explicit Identity-H encoding of the declared Unicode repertoire, without
+  implicit font mutation.
+- Complete example with OFL-licensed Noto Sans and a synthetic MIT fixture.
+- Tests of invalid inputs, limits and PDF output; checks on PHP 8.3, 8.4 and 8.5.
 
-Les programmes pris en charge sont des TrueType statiques avec contours `glyf`,
-sur PHP 64 bits. Les collections, CFF, WOFF et polices variables sont refusés.
-La réduction en sous-ensemble, la composition contextuelle, les ligatures,
-le crénage et l'écriture verticale ne sont pas implémentés.
+Supported programs are static TrueType fonts with `glyf` outlines, on 64-bit
+PHP. Collections, CFF, WOFF and variable fonts are rejected. Subsetting,
+contextual shaping, ligatures, kerning and vertical writing are not implemented.
