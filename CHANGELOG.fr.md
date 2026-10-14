@@ -4,6 +4,15 @@
 
 ## Unreleased
 
+## 0.1.8 — 2026-10-14
+
+### Compatibilité et périmètre
+
+- Accepte le core stable `roukmoute/pdf:^0.2 || ^0.3 || ^0.4 || ^0.5 || ^0.6 || ^0.7`.
+- Verrouille les vérifications de publication sur le core publié `0.6.2`, avec des dépendances de production stables et les mêmes versions d’outils de développement.
+- Conserve la conversion bornée TrueType statique et les correspondances CID/Unicode existantes. Les métadonnées, le balisage et la sécurité PDF 2.0 restent des mécanismes du writer du core ; la composition typographique n’est pas ajoutée.
+- Exige PHP 8.3 ou supérieur ; la CI valide PHP 8.3, 8.4 et 8.5 ainsi que les oracles PDF indépendants.
+
 ## 0.1.7 — 2026-10-14
 
 ### Compatibilité

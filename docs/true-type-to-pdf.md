@@ -2,6 +2,11 @@
 
 English | [Français](fr/true-type-to-pdf.md)
 
+Version 0.1.8 accepts core 0.7 alongside earlier supported releases. This
+converter still processes static TrueType programs; the core owns PDF 2.0
+metadata, tagging and security. An independent `pdftoolkit/opentype` model
+provides OpenType mechanisms without becoming a runtime dependency here.
+
 ## Two formats, two responsibilities
 
 ISO 32000-1 describes `/FontFile2` as a stream containing a TrueType program,

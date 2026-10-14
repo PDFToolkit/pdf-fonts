@@ -2,6 +2,12 @@
 
 [English](../true-type-to-pdf.md) | Français
 
+La version 0.1.8 accepte le core 0.7 en plus des versions antérieures prises en
+charge. Ce convertisseur traite toujours les programmes TrueType statiques ;
+le core porte les métadonnées, le balisage et la sécurité PDF 2.0. Un modèle
+indépendant `pdftoolkit/opentype` fournit les mécanismes OpenType sans devenir
+une dépendance de production de ce convertisseur.
+
 ## Deux formats, deux responsabilités
 
 ISO 32000-1 décrit un `/FontFile2` comme un flux contenant un programme TrueType,
