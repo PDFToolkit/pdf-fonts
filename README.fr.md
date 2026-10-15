@@ -22,7 +22,7 @@ consommateur :
 composer require "pdftoolkit/pdf-fonts:^0.1"
 ```
 
-Le module utilise le core `roukmoute/pdf:^0.2 || ^0.3 || ^0.4 || ^0.5 || ^0.6 || ^0.7 || ^0.8 || ^0.9`,
+Le module utilise le core `roukmoute/pdf:^0.2 || ^0.3 || ^0.4 || ^0.5 || ^0.6 || ^0.7 || ^0.8 || ^0.9 || ^0.10`,
 installé automatiquement par Composer. PHP 8.3 ou supérieur sur une plateforme
 64 bits et les extensions `ctype`, `iconv` et `zlib` sont requis pour cet ensemble.
 Le namespace des convertisseurs est
@@ -34,7 +34,7 @@ La [documentation commune](https://pdftoolkit.github.io/fr/) regroupe les objets
 core et les modules. La [documentation du module polices](https://pdftoolkit.github.io/fr/modules/fonts/)
 présente ses guides et sa référence API.
 
-Les mêmes convertisseurs sont compatibles avec les cores 0.6, 0.7, 0.8 et 0.9.
+Les mêmes convertisseurs sont compatibles avec les cores 0.6, 0.7, 0.8, 0.9 et 0.10.
 La conversion TrueType statique conserve son périmètre. La sélection de la version de sortie
 et les objets de métadonnées, de balisage ou de sécurité PDF 2.0 appartiennent
 au writer du core.
