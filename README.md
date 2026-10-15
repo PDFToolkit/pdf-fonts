@@ -22,7 +22,7 @@ application:
 composer require "pdftoolkit/pdf-fonts:^0.1"
 ```
 
-The module uses `roukmoute/pdf:^0.2 || ^0.3 || ^0.4 || ^0.5 || ^0.6 || ^0.7 || ^0.8 || ^0.9 || ^0.10`, installed
+The module uses `roukmoute/pdf:^0.2 || ^0.3 || ^0.4 || ^0.5 || ^0.6 || ^0.7 || ^0.8 || ^0.9 || ^0.10 || ^0.11`, installed
 by Composer automatically. PHP 8.3 or newer on a 64-bit platform and the `ctype`,
 `iconv` and `zlib` extensions are required for this combination. Converters use
 the `PDF\Fonts\TrueType` namespace; PDF font objects use `PDF\Document\Fonts`.
