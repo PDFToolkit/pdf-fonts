@@ -18,3 +18,14 @@ Pour reproduire le binaire : installer `fontTools==4.62.0` dans un environnement
 Python de développement, puis exécuter `python tests/Fixtures/fonts/build_fixture.py`.
 Les horodatages sont fixés ; les tests PHP lisent le binaire déjà commité et
 ne requièrent ni Python ni fontTools.
+
+## Fixtures OpenType originales de mise en forme
+
+`PDFToolkitCffSimple.otf`, `PDFToolkitCffCid.otf` et `PDFToolkitLayoutTrueType.ttf`
+sont aussi des fixtures originales MIT, produites par `tools/build_opentype_fixtures.py`.
+Elles contiennent huit glyphes polygonaux à 1 000 unités par em, les alias A/alpha
+grec, la ligature fi, le crénage AV et l'attachement de l'accent aigu. Le charset
+CFF CID utilise volontairement les CID 10–70 au lieu des GID 1–7. Horodatages fixes
+et fontTools épinglé rendent `python tools/build_opentype_fixtures.py --check`
+reproductible. Aucun contour tiers ni programme de hinting n'est inclus. L'oracle
+PDF indépendant emploie les trois fontes, sans prétendre à un corpus typographique universel.

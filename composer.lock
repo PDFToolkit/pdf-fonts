@@ -4,20 +4,87 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e169d60b47fca4de58c98c9ffb06bf2a",
+    "content-hash": "1ff5cf86146395922709d27d958785d5",
     "packages": [
         {
-            "name": "roukmoute/pdf",
-            "version": "v0.10.0",
+            "name": "pdftoolkit/opentype",
+            "version": "v0.4.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/PDFToolkit/pdf.git",
-                "reference": "3d5777ca3cc32e65a152ab080263b0cc5a6291ac"
+                "url": "https://github.com/PDFToolkit/opentype.git",
+                "reference": "22014ed40f29c61dc7068df5da19b09eed340678"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PDFToolkit/pdf/zipball/3d5777ca3cc32e65a152ab080263b0cc5a6291ac",
-                "reference": "3d5777ca3cc32e65a152ab080263b0cc5a6291ac",
+                "url": "https://api.github.com/repos/PDFToolkit/opentype/zipball/22014ed40f29c61dc7068df5da19b09eed340678",
+                "reference": "22014ed40f29c61dc7068df5da19b09eed340678",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.3",
+                "php-64bit": "*"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.0",
+                "phpstan/phpstan": "^2.1",
+                "phpunit/phpunit": "^12.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "0.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PDFToolkit\\OpenType\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mathias STRASSER",
+                    "email": "contact@roukmoute.fr"
+                }
+            ],
+            "description": "Pure-object OpenType metadata, variable outlines, metrics, substitutions and glyph positioning",
+            "homepage": "https://pdftoolkit.github.io/modules/opentype/",
+            "keywords": [
+                "Glyphs",
+                "font-variations",
+                "fonts",
+                "gdef",
+                "gpos",
+                "gsub",
+                "kerning",
+                "ligatures",
+                "object-model",
+                "opentype",
+                "php",
+                "typography"
+            ],
+            "support": {
+                "docs": "https://pdftoolkit.github.io/modules/opentype/",
+                "issues": "https://github.com/PDFToolkit/opentype/issues",
+                "source": "https://github.com/PDFToolkit/opentype"
+            },
+            "time": "2026-10-28T18:35:24+00:00"
+        },
+        {
+            "name": "roukmoute/pdf",
+            "version": "v0.11.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PDFToolkit/pdf.git",
+                "reference": "25b426190b1c2b8d9d26a3fbf94f71c8014725b3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PDFToolkit/pdf/zipball/25b426190b1c2b8d9d26a3fbf94f71c8014725b3",
+                "reference": "25b426190b1c2b8d9d26a3fbf94f71c8014725b3",
                 "shasum": ""
             },
             "require": {
@@ -29,9 +96,9 @@
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^3.0",
-                "pdftoolkit/pdf-fonts": "^0.1.11",
-                "pdftoolkit/pdf-images": "^0.1.11",
-                "pdftoolkit/pdf-reader": "^0.5.1",
+                "pdftoolkit/pdf-fonts": "^0.1.12",
+                "pdftoolkit/pdf-images": "^0.1.12",
+                "pdftoolkit/pdf-reader": "^0.6",
                 "phpstan/phpstan": "^2.1",
                 "phpunit/phpunit": "^12.0"
             },
@@ -42,7 +109,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.10.x-dev"
+                    "dev-master": "0.11.x-dev"
                 }
             },
             "autoload": {
@@ -80,7 +147,7 @@
                 "issues": "https://github.com/PDFToolkit/pdf/issues",
                 "source": "https://github.com/PDFToolkit/pdf"
             },
-            "time": "2026-10-15T17:03:31+00:00"
+            "time": "2026-10-15T21:35:13+00:00"
         }
     ],
     "packages-dev": [
@@ -4547,9 +4614,9 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.3",
         "ext-ctype": "*",
-        "ext-iconv": "*"
+        "ext-iconv": "*",
+        "php": "^8.3"
     },
     "platform-dev": {},
     "platform-overrides": {

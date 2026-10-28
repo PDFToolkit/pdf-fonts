@@ -1,7 +1,7 @@
 {
     "name": "pdftoolkit/pdf-fonts",
     "type": "library",
-    "description": "Bounded static TrueType conversion to explicit PDF font objects for PHP 8.3+",
+    "description": "Bounded OpenType layout and static TrueType/CFF conversion to explicit PDF font objects",
     "keywords": [
         "pdf",
         "object-model",
@@ -15,10 +15,11 @@
         "docs": "https://pdftoolkit.github.io/modules/fonts/"
     },
     "require": {
-        "php": "^8.3",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "roukmoute/pdf": "^0.2 || ^0.3 || ^0.4 || ^0.5 || ^0.6 || ^0.7 || ^0.8 || ^0.9 || ^0.10 || ^0.11"
+        "php": "^8.3",
+        "pdftoolkit/opentype": "^0.4",
+        "roukmoute/pdf": "^0.4 || ^0.5 || ^0.6 || ^0.7 || ^0.8 || ^0.9 || ^0.10 || ^0.11 || ^0.12"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.0",
@@ -65,7 +66,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.1.x-dev"
+            "dev-master": "0.2.x-dev"
         }
     }
 }
