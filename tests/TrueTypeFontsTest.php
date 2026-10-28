@@ -224,7 +224,7 @@ final class TrueTypeFontsTest extends TestCase
         yield 'no subset' => [0x100, true];
         yield 'restricted' => [2, false];
         yield 'bitmap only' => [0x200, false];
-        yield 'conflicting' => [12, false];
+        yield 'legacy preview and editing' => [12, true];
         yield 'reserved' => [1, false];
     }
 
@@ -239,6 +239,37 @@ final class TrueTypeFontsTest extends TestCase
         $program = new FontProgram($bytes);
         self::assertSame($rights, $program->embeddingRights);
         self::assertSame($program->table('glyf')->slice(0, $program->table('glyf')->length()), (new CIDFontProgram($program))->tables['glyf']->bytes);
+    }
+
+    /** @return iterable<string, array{int, int, bool}> */
+    public static function versionedEmbeddingRights(): iterable
+    {
+        yield 'version zero ignores high bits' => [0, 0xF200, true];
+        yield 'version one ignores high bits' => [1, 0xF200, true];
+        yield 'ignored high bits do not grant restricted embedding' => [1, 0xF202, false];
+        yield 'version zero least restrictive permission' => [0, 0x000E, true];
+        yield 'version one least restrictive permission' => [1, 0x000C, true];
+        yield 'version two least restrictive permission' => [2, 0x000E, true];
+        yield 'version two bitmap restriction applies' => [2, 0x0200, false];
+        yield 'version two reserved bits remain invalid' => [2, 0x8000, false];
+        yield 'version three permissions are exclusive' => [3, 0x000C, false];
+        yield 'version five bitmap restriction applies' => [5, 0x0200, false];
+    }
+
+    #[DataProvider('versionedEmbeddingRights')]
+    public function testEmbeddingPermissionsFollowTheOs2Version(int $version, int $rights, bool $allowed): void
+    {
+        $bytes = $this->bytes();
+        $offset = $this->tableOffset($bytes, 'OS/2');
+        $bytes = substr_replace($bytes, pack('n', $version), $offset, 2);
+        $bytes = substr_replace($bytes, pack('n', $rights), $offset + 8, 2);
+        if (!$allowed) {
+            $this->expectException(\InvalidArgumentException::class);
+        }
+        $program = new FontProgram($bytes);
+        self::assertSame($rights, $program->embeddingRights);
+        $converted = new CIDFontProgram($program);
+        self::assertSame($rights, (new BinaryReader($converted->tables['OS/2']->bytes))->uint16(8));
     }
 
     public function testTruncatedTablesAndOutOfBoundsDirectoryOffsetsAreRejected(): void

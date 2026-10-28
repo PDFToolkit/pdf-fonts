@@ -96,7 +96,7 @@ final readonly class FontProgram
         };
         $os2->slice(0, $minimumLength);
         $rights = $os2->uint16(8);
-        if (($rights & 0x0202) !== 0 || ($rights & ~0x030E) !== 0 || count(array_filter([($rights & 2) !== 0, ($rights & 4) !== 0, ($rights & 8) !== 0])) > 1) {
+        if (!(new EmbeddingRights($rights, $version))->permitsOutlineEmbedding()) {
             throw new \InvalidArgumentException('Font embedding is restricted, bitmap-only, or has invalid embedding permissions.');
         }
         // No-subsetting (0100) is respected: this implementation embeds all glyphs.
