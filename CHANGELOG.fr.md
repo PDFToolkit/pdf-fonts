@@ -4,6 +4,17 @@
 
 ## Unreleased
 
+## 0.2.0 — 2026-10-28
+
+- Exiger le core 0.4 ou supérieur dans les séries 0.4–0.12 et OpenType stable 0.4 ; vérifier le verrou stable et le minimum core 0.4 exact. PHP reste 8.3+ sur plateforme 64 bits.
+- Respecter les droits OS/2 versionnés, dont permissions anciennes les moins restrictives et bits hauts ignorés en v0/v1.
+- Ajouter mise en forme GSUB/GPOS explicite, plages sur clusters source, incorporation CFF1 statique et pont TrueType partageant le contrat de texte positionné.
+- Préserver codes PDF distincts des alias Unicode, correspondances CID/GID CFF, séquences ToUnicode des ligatures et ActualText complet ; émettre offsets/avances absolus.
+- Proposer explicitement conteneur OpenType entier ou table CFF à CID. Documenter la limite raster OpenType-CID observée dans Poppler et vérifier l'alternative CIDFontType0C.
+- Ajouter fixtures originales CFF simple/CID et TrueType, exemple exécutable et contrôles fontTools/HarfBuzz/pypdf/Poppler indépendants ; maintenir les guides FR/EN complets.
+- Incorporation PDF variable/CFF2 et génération d'instance statique restent absentes ; aucune itemisation Unicode, bidi, casse, composition verticale ou hinting automatique revendiqués. OpenType stable devient une dépendance de production explicite.
+
+
 ## 0.1.12 - 2026-10-15
 
 - Accepter le core stable `^0.11` avec les séries précédemment prises en charge.

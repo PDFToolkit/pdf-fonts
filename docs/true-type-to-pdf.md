@@ -2,10 +2,10 @@
 
 English | [Français](fr/true-type-to-pdf.md)
 
-Version 0.1.8 accepts core 0.7 alongside earlier supported releases. This
-converter still processes static TrueType programs; the core owns PDF 2.0
-metadata, tagging and security. An independent `pdftoolkit/opentype` model
-provides OpenType mechanisms without becoming a runtime dependency here.
+This guide retains the original static TrueType API. Version 0.2 additionally
+provides [OpenType GSUB/GPOS layout and CFF embedding](opentype-layout.md) through
+an explicit `pdftoolkit/opentype` dependency; no shaping is silently added to
+`TextEncoder`. The core still owns PDF metadata, tagging and security.
 
 ## Two formats, two responsibilities
 

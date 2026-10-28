@@ -7,7 +7,7 @@ Optional font program converters for the PDF objects in
 
 The core represents dictionaries, streams, CIDs, widths in PDF units and
 `/ToUnicode` mappings described by ISO 32000-1. This package reads the external
-TrueType format: the sfnt directory, `cmap`, `glyf`, `loca`, `hmtx`, `OS/2`,
+TrueType format and, through `pdftoolkit/opentype`, static CFF and explicit layout: the sfnt directory, `cmap`, `glyf`, `loca`, `hmtx`, `OS/2`,
 `name`, `head`, `hhea`, `maxp` and `post`. It then converts the results into
 explicit PDF values. A project that generates PDFs without parsing a font
 file does not need this package.
@@ -19,22 +19,25 @@ The package is available on
 application:
 
 ```sh
-composer require "pdftoolkit/pdf-fonts:^0.1"
+composer require "pdftoolkit/pdf-fonts:^0.2"
 ```
 
-The module uses `roukmoute/pdf:^0.2 || ^0.3 || ^0.4 || ^0.5 || ^0.6 || ^0.7 || ^0.8 || ^0.9 || ^0.10 || ^0.11`, installed
+The module uses `roukmoute/pdf` and `pdftoolkit/opentype:^0.4`, installed
 by Composer automatically. PHP 8.3 or newer on a 64-bit platform and the `ctype`,
 `iconv` and `zlib` extensions are required for this combination. Converters use
-the `PDF\Fonts\TrueType` namespace; PDF font objects use `PDF\Document\Fonts`.
+the `PDF\Fonts\TrueType` and `PDF\Fonts\OpenType` namespaces; PDF font objects use `PDF\Document\Fonts`.
 The application's `composer.lock` records the selected versions and revisions.
+Core 0.4 or newer in the supported 0.4–0.12 series is required; 0.2 and 0.3
+lack PDF representations used by the new layout API.
 
 The [shared documentation](https://pdftoolkit.github.io/) covers core objects
 and modules. The [font module documentation](https://pdftoolkit.github.io/modules/fonts/)
 contains its guides and API reference.
 
-The same converters are compatible with core 0.6, 0.7, 0.8, 0.9 and 0.10. Static TrueType conversion
-keeps its existing scope. Selecting the output version and supplying PDF 2.0
-metadata, tagging or security objects belong to the core writer.
+Version 0.2 adds [OpenType layout and CFF embedding](docs/opentype-layout.md),
+including explicit GSUB/GPOS stages and source-cluster feature ranges for TrueType
+and CFF. Existing TrueType conversion objects remain available. Output PDF version,
+metadata, tagging and security belong to the core writer.
 
 ## Construction
 
@@ -83,10 +86,14 @@ a PDF with the included Noto Sans font, distributed under the OFL licence.
 
 ## Scope and checks
 
-PHP 8.3 or newer on a 64-bit platform is required. Only single, static TrueType
-programs with `glyf` outlines are supported. Collections, CFF, WOFF and variable
-fonts are explicitly rejected. All glyphs are preserved: no subsetting,
-contextual shaping, ligatures, kerning or vertical writing is performed.
+PHP 8.3 or newer on a 64-bit platform is required. The original TrueType importer
+accepts single static glyf programs; the OpenType path also embeds static CFF1 and
+selects CFF collection faces. Explicit layout supports font-defined substitutions,
+ligatures, kerning and mark positioning. All glyphs are retained. Variable PDF
+embedding/static instantiation, WOFF, automatic Unicode script shaping/bidi and
+vertical text composition remain absent. [Detailed mappings and limits](docs/opentype-layout.md)
+include CID/GID identity, Unicode aliases, CFF container interoperability and the
+independent raster oracle.
 
 The default budget is 32 MiB of font data; `FontProgramLimits` accepts an
 explicit budget. `UnicodeText` is limited to 1 MiB of UTF-8. Binary reads remain

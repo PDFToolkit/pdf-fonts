@@ -4,6 +4,17 @@ English | [Français](CHANGELOG.fr.md)
 
 ## Unreleased
 
+## 0.2.0 — 2026-10-28
+
+- Require core 0.4 or newer in the supported 0.4–0.12 series and stable OpenType 0.4; validate the stable dependency lock and the exact core 0.4 minimum. PHP remains 8.3+ on 64-bit platforms.
+- Respect versioned OS/2 embedding rights, including legacy least-restrictive flags and v0/v1 ignored high bits.
+- Add explicit OpenType GSUB/GPOS layout, source-cluster feature ranges, static CFF1 embedding and a TrueType bridge using the same positioned-text contract.
+- Preserve distinct PDF codes for Unicode aliases, CFF CID/GID mappings, ligature ToUnicode sequences and complete ActualText; emit absolute glyph offsets/advances.
+- Offer explicit whole OpenType or CID-keyed CFF-table containers. Document the observed Poppler OpenType-CID raster limitation and validate the CIDFontType0C alternative.
+- Add original simple/CID CFF and TrueType fixtures, executable layout example, and independent fontTools/HarfBuzz/pypdf/Poppler raster checks; maintain complete English/French guides.
+- Variable/CFF2 PDF embedding and static instance generation remain absent; no automatic Unicode itemization, bidi, casing, vertical compositor or hinting is claimed. Stable OpenType is now an explicit production dependency.
+
+
 ## 0.1.12 - 2026-10-15
 
 - Accept stable core `^0.11` alongside the previous supported series.

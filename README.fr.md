@@ -7,7 +7,7 @@ Convertisseurs optionnels de programmes de police vers les objets PDF de
 
 Le core représente les dictionnaires, les flux, les CID, les largeurs en unités
 PDF et les correspondances `/ToUnicode` décrits par ISO 32000-1. Ce package lit
-le format TrueType externe : répertoire sfnt, `cmap`, `glyf`, `loca`, `hmtx`,
+le format TrueType externe et, via `pdftoolkit/opentype`, CFF statique et mise en forme explicite : répertoire sfnt, `cmap`, `glyf`, `loca`, `hmtx`,
 `OS/2`, `name`, `head`, `hhea`, `maxp` et `post`. Il transforme ensuite les
 résultats en valeurs PDF explicites. Un projet qui génère ses PDF sans analyser
 un fichier de police n’a pas besoin de ce package.
@@ -19,25 +19,27 @@ Le package est disponible sur
 consommateur :
 
 ```sh
-composer require "pdftoolkit/pdf-fonts:^0.1"
+composer require "pdftoolkit/pdf-fonts:^0.2"
 ```
 
-Le module utilise le core `roukmoute/pdf:^0.2 || ^0.3 || ^0.4 || ^0.5 || ^0.6 || ^0.7 || ^0.8 || ^0.9 || ^0.10 || ^0.11`,
+Le module utilise le core `roukmoute/pdf` et `pdftoolkit/opentype:^0.4`,
 installé automatiquement par Composer. PHP 8.3 ou supérieur sur une plateforme
 64 bits et les extensions `ctype`, `iconv` et `zlib` sont requis pour cet ensemble.
 Le namespace des convertisseurs est
-`PDF\Fonts\TrueType` ; celui des objets PDF de police est `PDF\Document\Fonts`.
+`PDF\Fonts\TrueType` et `PDF\Fonts\OpenType` ; celui des objets PDF de police est `PDF\Document\Fonts`.
 Le fichier `composer.lock` du projet consommateur fixe les versions et les
 révisions utilisées.
+Le core 0.4 ou supérieur dans les séries prises en charge 0.4–0.12 est requis ;
+les séries 0.2 et 0.3 ne proposent pas les objets PDF utilisés par la nouvelle API.
 
 La [documentation commune](https://pdftoolkit.github.io/fr/) regroupe les objets du
 core et les modules. La [documentation du module polices](https://pdftoolkit.github.io/fr/modules/fonts/)
 présente ses guides et sa référence API.
 
-Les mêmes convertisseurs sont compatibles avec les cores 0.6, 0.7, 0.8, 0.9 et 0.10.
-La conversion TrueType statique conserve son périmètre. La sélection de la version de sortie
-et les objets de métadonnées, de balisage ou de sécurité PDF 2.0 appartiennent
-au writer du core.
+La version 0.2 ajoute [mise en forme OpenType et incorporation CFF](docs/fr/opentype-layout.md),
+avec étapes GSUB/GPOS et plages de fonctionnalités sur clusters source explicites
+pour TrueType et CFF. Les objets TrueType existants restent disponibles. Version
+PDF de sortie, métadonnées, balisage et sécurité appartiennent au writer du core.
 
 ## Construction
 
@@ -86,11 +88,14 @@ produit un PDF avec la police Noto Sans incluse sous licence OFL.
 
 ## Portée et contrôles
 
-PHP 8.3 ou supérieur sur une plateforme 64 bits est requis. Seuls les programmes
-TrueType statiques simples avec contours `glyf` sont pris en charge. Les
-collections, CFF, WOFF et polices variables sont rejetés explicitement. Tous les
-glyphes sont conservés : aucune réduction en sous-ensemble, composition
-contextuelle, ligature, crénage ni écriture verticale n’est effectuée.
+PHP 8.3 ou supérieur sur une plateforme 64 bits est requis. L'importateur TrueType
+original accepte les programmes glyf statiques individuels ; le chemin OpenType
+incorpore aussi CFF1 statique et sélectionne les faces CFF d'une collection.
+La mise en forme explicite exécute substitutions, ligatures, crénage et marques de
+la fonte. Tous les glyphes restent présents. Incorporation PDF variable/instance
+statique, WOFF, shaping Unicode/bidi automatique et composition verticale restent
+absents. Les [correspondances et limites](docs/fr/opentype-layout.md) détaillent
+CID/GID, alias Unicode, interopérabilité des conteneurs CFF et oracle raster indépendant.
 
 Le budget par défaut est de 32 MiB de données de police ; `FontProgramLimits`
 permet de fournir un budget explicite. `UnicodeText` est limité à 1 MiB de UTF-8.
