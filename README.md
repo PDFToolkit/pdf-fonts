@@ -22,13 +22,18 @@ application:
 composer require "pdftoolkit/pdf-fonts:^0.2"
 ```
 
-The module uses `roukmoute/pdf` and `pdftoolkit/opentype:^0.4`, installed
+The core is installed under its canonical Composer name `pdftoolkit/pdf:^0.12.2`.
+If your application directly requires `roukmoute/pdf`, replace that requirement
+with `pdftoolkit/pdf:^0.12.2` and update the lock with Composer.
+PHP namespaces and APIs are unchanged.
+
+The module uses `pdftoolkit/pdf:^0.12.2` and `pdftoolkit/opentype:^0.4`, installed
 by Composer automatically. PHP 8.3 or newer on a 64-bit platform and the `ctype`,
 `iconv` and `zlib` extensions are required for this combination. Converters use
 the `PDF\Fonts\TrueType` and `PDF\Fonts\OpenType` namespaces; PDF font objects use `PDF\Document\Fonts`.
 The application's `composer.lock` records the selected versions and revisions.
-Core 0.4 or newer in the supported 0.4–0.12 series is required; 0.2 and 0.3
-lack PDF representations used by the new layout API.
+Version 0.2.1 requires the canonical core package starting at 0.12.2.
+The PDF objects and layout API retain their existing PHP namespaces.
 
 The [shared documentation](https://pdftoolkit.github.io/) covers core objects
 and modules. The [font module documentation](https://pdftoolkit.github.io/modules/fonts/)

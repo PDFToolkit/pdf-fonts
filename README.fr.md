@@ -22,15 +22,20 @@ consommateur :
 composer require "pdftoolkit/pdf-fonts:^0.2"
 ```
 
-Le module utilise le core `roukmoute/pdf` et `pdftoolkit/opentype:^0.4`,
+Le core est installé sous son nom Composer canonique `pdftoolkit/pdf:^0.12.2`.
+Si votre application exige directement `roukmoute/pdf`, remplacez cette exigence
+par `pdftoolkit/pdf:^0.12.2` et actualisez le verrou avec Composer.
+Les namespaces PHP et les API restent inchangés.
+
+Le module utilise le core `pdftoolkit/pdf:^0.12.2` et `pdftoolkit/opentype:^0.4`,
 installé automatiquement par Composer. PHP 8.3 ou supérieur sur une plateforme
 64 bits et les extensions `ctype`, `iconv` et `zlib` sont requis pour cet ensemble.
 Le namespace des convertisseurs est
 `PDF\Fonts\TrueType` et `PDF\Fonts\OpenType` ; celui des objets PDF de police est `PDF\Document\Fonts`.
 Le fichier `composer.lock` du projet consommateur fixe les versions et les
 révisions utilisées.
-Le core 0.4 ou supérieur dans les séries prises en charge 0.4–0.12 est requis ;
-les séries 0.2 et 0.3 ne proposent pas les objets PDF utilisés par la nouvelle API.
+La version 0.2.1 exige le package canonique du core à partir de 0.12.2.
+Les objets PDF et l’API de mise en forme conservent leurs namespaces PHP.
 
 La [documentation commune](https://pdftoolkit.github.io/fr/) regroupe les objets du
 core et les modules. La [documentation du module polices](https://pdftoolkit.github.io/fr/modules/fonts/)

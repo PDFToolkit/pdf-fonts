@@ -4,6 +4,11 @@ English | [Français](CHANGELOG.fr.md)
 
 ## Unreleased
 
+## 0.2.1 — 2026-11-02
+
+- Use the canonical Composer package `pdftoolkit/pdf:^0.12.2` and migrated stable dependencies. Keep existing PHP namespaces, APIs and behavior.
+- Document migration of application requirements in English and French; preserve previous releases and their evidence.
+
 ## 0.2.0 — 2026-10-28
 
 - Require core 0.4 or newer in the supported 0.4–0.12 series and stable OpenType 0.4; validate the stable dependency lock and the exact core 0.4 minimum. PHP remains 8.3+ on 64-bit platforms.
@@ -13,7 +18,6 @@ English | [Français](CHANGELOG.fr.md)
 - Offer explicit whole OpenType or CID-keyed CFF-table containers. Document the observed Poppler OpenType-CID raster limitation and validate the CIDFontType0C alternative.
 - Add original simple/CID CFF and TrueType fixtures, executable layout example, and independent fontTools/HarfBuzz/pypdf/Poppler raster checks; maintain complete English/French guides.
 - Variable/CFF2 PDF embedding and static instance generation remain absent; no automatic Unicode itemization, bidi, casing, vertical compositor or hinting is claimed. Stable OpenType is now an explicit production dependency.
-
 
 ## 0.1.12 - 2026-10-15
 
@@ -28,7 +32,6 @@ English | [Français](CHANGELOG.fr.md)
 - Verify the unchanged module against the core 0.10 candidate on PHP 8.3, 8.4 and 8.5, using an isolated validation copy outside production manifests.
 - Keep the public API, limits and PHP requirements unchanged; update the documented compatibility in English and French.
 
-
 ## 0.1.10 - 2026-10-15
 
 - Accept stable core `^0.9` while retaining the previously supported core series.
@@ -41,7 +44,6 @@ English | [Français](CHANGELOG.fr.md)
 - Accept stable core ^0.8 while retaining the previously supported releases.
 - Lock validation to published core 0.7.1; verify compatibility with the core 0.8 candidate and retain the existing converter API and bounded parsing.
 - Update installation documentation in English and French; PHP 8.3–8.5.
-
 
 ## 0.1.8 — 2026-10-14
 

@@ -4,6 +4,11 @@
 
 ## Unreleased
 
+## 0.2.1 — 2026-11-02
+
+- Utiliser le nom Composer canonique `pdftoolkit/pdf:^0.12.2` et les dépendances stables migrées. Conserver les namespaces PHP, API et comportements existants.
+- Documenter la migration des exigences applicatives en français et en anglais ; conserver les anciennes versions et leurs preuves.
+
 ## 0.2.0 — 2026-10-28
 
 - Exiger le core 0.4 ou supérieur dans les séries 0.4–0.12 et OpenType stable 0.4 ; vérifier le verrou stable et le minimum core 0.4 exact. PHP reste 8.3+ sur plateforme 64 bits.
@@ -13,7 +18,6 @@
 - Proposer explicitement conteneur OpenType entier ou table CFF à CID. Documenter la limite raster OpenType-CID observée dans Poppler et vérifier l'alternative CIDFontType0C.
 - Ajouter fixtures originales CFF simple/CID et TrueType, exemple exécutable et contrôles fontTools/HarfBuzz/pypdf/Poppler indépendants ; maintenir les guides FR/EN complets.
 - Incorporation PDF variable/CFF2 et génération d'instance statique restent absentes ; aucune itemisation Unicode, bidi, casse, composition verticale ou hinting automatique revendiqués. OpenType stable devient une dépendance de production explicite.
-
 
 ## 0.1.12 - 2026-10-15
 
@@ -28,7 +32,6 @@
 - Vérifier le module inchangé avec le candidat core 0.10 sous PHP 8.3, 8.4 et 8.5, avec une copie de validation isolée hors des manifestes de production.
 - Conserver l’API publique, les limites et les exigences PHP ; actualiser la compatibilité documentée en français et en anglais.
 
-
 ## 0.1.10 - 2026-10-15
 
 - Accepter le core stable `^0.9` en conservant les séries précédemment prises en charge.
@@ -41,7 +44,6 @@
 - Accepter le core stable ^0.8 en conservant les versions précédemment prises en charge.
 - Verrouiller la validation sur le core publié 0.7.1 ; vérifier la compatibilité avec le candidat core 0.8 et conserver l’API de conversion et l’analyse bornée.
 - Mettre à jour l’installation en français et en anglais ; PHP 8.3–8.5.
-
 
 ## 0.1.8 — 2026-10-14
 
